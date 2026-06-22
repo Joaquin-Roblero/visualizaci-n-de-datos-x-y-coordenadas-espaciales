@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Monitoreo - Pestaña 2</title>
+    
+    <style>
+        #fondo-sistema {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background-color: #ffffff;
+        }
+        #contenedor-principal {
+            background-color: #3d3029;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(61, 48, 41, 0.25);
+        }
+        #bloque-titulos { text-align: center; margin-bottom: 25px; }
+        #titulo-actividad { color: #fdfbf7; font-size: 28px; margin-bottom: 5px; }
+        #subtitulo-autor { color: #e2875e; font-size: 18px; font-weight: 600; }
+        
+        /* Estilos del menú inferior */
+        #menu-navegacion {
+            margin-top: 40px;
+            background-color: #ebdcb9;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #dfcfab;
+        }
+        #lista-pestanas { list-style-type: none; padding: 0; margin: 0; display: flex; justify-content: center; gap: 20px; }
+        #pestana-link { color: #4a3b33; text-decoration: none; font-weight: 700; font-size: 14px; text-transform: uppercase; padding: 8px 16px; border-radius: 6px; transition: all 0.2s ease; }
+        #pestana-link:hover { background-color: #3d3029; color: #fdfbf7; }
+    </style>
+</head>
+<body id="fondo-sistema">
+
+    <div id="contenedor-principal">
+        
+        <header id="bloque-titulos">
+            <h1 id="titulo-actividad">Estadísticas Generales Pestaña 2</h1>
+            <h2 id="subtitulo-autor">Desarrollado por: Benjamin Hernandez y Joaquin Roblero</h2>
+        </header>
+
+        <section style="margin: 30px 0;">
+            <h3 style="color: #e2875e; text-align: center; margin-bottom: 25px;">Análisis de Ocupación Espacial</h3>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+                
+                <div style="background-color: #ebdcb9; border-left: 5px solid #e2875e; padding: 15px 20px; border-radius: 6px; min-width: 160px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <p style="margin: 0; color: #4a3b33; font-size: 13px; font-weight: bold; text-transform: uppercase;">Nodos Activos</p>
+                    <p style="margin: 5px 0 0 0; color: #3d3029; font-size: 28px; font-weight: 800;">{{ metricas.activos }}</p>
+                </div>
+
+                <div style="background-color: #ebdcb9; border-left: 5px solid #a3937b; padding: 15px 20px; border-radius: 6px; min-width: 160px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <p style="margin: 0; color: #4a3b33; font-size: 13px; font-weight: bold; text-transform: uppercase;">Ocupación</p>
+                    <p style="margin: 5px 0 0 0; color: #3d3029; font-size: 28px; font-weight: 800;">{{ metricas.porcentaje }}%</p>
+                </div>
+
+                <div style="background-color: #ebdcb9; border-left: 5px solid #4a3b33; padding: 15px 20px; border-radius: 6px; min-width: 160px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <p style="margin: 0; color: #4a3b33; font-size: 13px; font-weight: bold; text-transform: uppercase;">Estado General</p>
+                    <p style="margin: 7px 0 0 0; font-size: 16px; font-weight: bold; color: {% if metricas.estado_sistema == 'ÓPTIMO' %}#2e7d32{% else %}#c62828{% endif %};">
+                        {{ metricas.estado_sistema }}
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <nav id="menu-navegacion">
+            <ul id="lista-pestanas">
+                <li><a href="{{ url_for('index') }}" id="pestana-link">Inicio</a></li>
+                <li><a href="{{ url_for('pestaña1') }}" id="pestana-link">LINK 1</a></li>
+                <li><a href="{{ url_for('pestaña2') }}" id="pestana-link">LINK 2</a></li>
+                <li><a href="{{ url_for('pestaña3') }}" id="pestana-link">LINK 3</a></li>
+            </ul>
+        </nav>
+
+    </div>
+
+</body>
+</html>

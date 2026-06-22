@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="refresh" content="4">
+	<title>Sistema Visualización Datos X;Y</title>
+	<style>
+/* 1. Fondo completo de la página - Blanco limpio */
+    #fondo-sistema {
+        font-family: 'Segoe UI', sans-serif;
+        margin: 0;
+        padding: 40px 20px;
+        background-color: #ffffff; /* Blanco absoluto */
+    }
+
+    /* 2. Tarjeta contenedora principal - Color café chocolate */
+    #contenedor-principal {
+        background-color: #3d3029; /* Café oscuro para contrastar con el fondo blanco */
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(61, 48, 41, 0.25); /* Sombra con un toque café */
+    }
+
+    /* 3. Títulos - Crema y Terracota */
+    #bloque-titulos {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    #titulo-actividad {
+        color: #fdfbf7;          /* Crema claro brillante */
+        font-size: 28px;
+        margin-bottom: 5px;
+    }
+
+    #subtitulo-autor {
+        color: #e2875e;          /* Terracota más encendido para que resalte dentro del café */
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    /* 4. Sección de Explicación - Caja Beige Suave */
+    #seccion-explicacion {
+        background-color: #ebdcb9; /* Beige cálido */
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+
+    #texto-explicacion {
+        color: #4a3b33;          /* Letras café oscuro */
+        font-size: 15px;
+        line-height: 1.6;
+        margin: 0;
+        text-align: justify;
+        font-weight: 500;
+    }
+
+    /* 5. Contenedor del Menú de Navegación inferior - Cuadrado Beige Suave */
+    #menu-navegacion {
+        margin-top: 40px;
+        background-color: #ebdcb9; /* Combinado con la explicación */
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        border: 1px solid #dfcfab;
+    }
+
+    #lista-pestanas {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    #pestana-link {
+        color: #4a3b33;           /* Texto café oscuro */
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 14px;
+        text-transform: uppercase;
+        padding: 8px 16px;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+    }
+
+    /* Efecto Hover: El botón se vuelve color arcilla con letras crema */
+    #pestana-link:hover {
+        background-color: #3d3029; /* Café oscuro de la tarjeta */
+        color: #fdfbf7;            /* Crema claro */
+    }
+    /* 6. Diseño de la Tabla y la Matriz */
+    #seccion-matriz {
+        display: flex;
+        justify-content: center;  /* Centra la tabla dentro de la tarjeta */
+        margin: 30px 0;
+    }
+
+    #tabla-hardware {
+        border-collapse: separate; /* Permite separar las celdas para que parezcan botones individuales */
+        border-spacing: 12px;      /* Espacio o separación entre cada cuadrito */
+    }
+
+    /* Estilo base para todos los cuadritos (tanto encendidos como apagados) */
+    #tabla-hardware td {
+        width: 60px;               /* Ancho fijo para que sean cuadrados perfectos */
+        height: 60px;              /* Alto fijo */
+        text-align: center;
+        vertical-align: middle;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 8px;        /* Bordes redondeados para cada celda */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Sombra para dar volumen */
+        transition: all 0.3s ease;
+    }
+
+    /* CUADRADO ENCENDIDO (Valor = 1): Color Terracota Brillante */
+    #nodo-encendido {
+        background-color: #e2875e; /* Terracota encendido */
+        color: #fdfbf7;            /* Número en crema claro */
+        border: 2px solid #f2a482; /* Borde sutil más claro que simula luz/relieve */
+        text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    /* CUADRADO APAGADO (Valor = 0): Color Beige Suave/Apagado */
+    #nodo-apagado {
+        background-color: #4a3b33; /* Café oscuro (se funde un poco con la tarjeta) o puedes usar #ebdcb9 si lo quieres claro */
+        color: rgba(253, 251, 247, 0.2); /* Número 0 muy tenue para que no distraiga */
+        border: 2px solid #5c4a40;
+    }
+
+    /* Efecto interactivo: Cuando el usuario pasa el mouse sobre cualquier nodo */
+    #tabla-hardware td:hover {
+        transform: scale(1.1);     /* El cuadrito se agranda un 10% sutilmente */
+        cursor: pointer;
+    }
+	</style>
+	</head>
+<body id="fondo-sistema">
+<div id="contenedor-principal">
+	
+<header id="bloque-titulos">
+    <h1 id="titulo-actividad">Sistema de Visualización de Datos Espaciales</h1>
+    <h2 id="subtitulo-autor">Desarrollado por: Benjamin Hernandez y Joaquin Roblero</h2>
+</header>
+<section id="seccion-explicacion">
+<p id="texto-explicacion">
+Este panel interactivo recibe datos de coordenadas bidimensionales extraídos de un 
+        hardware embebido. A continuación, el sistema mapea estos valores en la cuadrícula 
+        inferior para visualizar gráficamente la ubicación espacial de los puntos de contacto.
+</p>
+</section>
+<section id="seccion-matriz">
+<table id="tabla-hardware">
+{% for fila in matriz_dinamica %}
+            <tr>
+                {% for valor in fila %}
+                    
+                    {% if valor == 1 %}
+                        <td id="nodo-encendido">1</td>
+                    {% else %}
+                        <td id="nodo-apagado">0</td>
+                    {% endif %}
+                    
+                {% endfor %}
+            </tr>
+        {% endfor %}
+</table>
+</section>
+	<nav id="menu-navegacion">
+    <ul id="lista-pestanas">
+        <li><a href="{{ url_for('index') }}" id="pestana-link">Pestaña (Inicio)</a></li>
+        <li><a href="{{ url_for('pestaña1') }}" id="pestana-link">Link 1</a></li>
+        <li><a href="{{ url_for('pestaña2') }}" id="pestana-link">Link 2</a></li>
+        <li><a href="{{ url_for('pestaña3') }}" id="pestana-link">Link 3</a></li>
+    </ul>
+</nav>
+
+</div>
+</body>
+</html>
